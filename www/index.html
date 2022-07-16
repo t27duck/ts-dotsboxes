@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style type="text/css">
+    :root {
+      --line-thickness: 8px;
+      --line-length: 50px;
+    }
+    .row-short {
+      height: var(--line-thickness);
+    }
+    .row-tall {
+      height: var(--line-length);
+    }
+    .dot {
+      width: var(--line-thickness);
+      height: var(--line-thickness);
+      background-color: red;
+      display: inline-block;
+    }
+    .line-horizontal {
+      width: var(--line-length);
+      height: var(--line-thickness);
+      background-color: green;
+      display: inline-block;
+    }
+    .line-vertical {
+      width: var(--line-thickness);
+      height: var(--line-length);
+      background-color: green;
+      display: inline-block;
+    }
+    .box {
+      width: var(--line-length);
+      height: var(--line-length);
+      background-color: blue;
+      display: inline-block;
+    }
+  </style>
+  <script src="index.js"></script>
+</head>
+<body>
+  <div id="grid"></div>
+</body>
+</html>

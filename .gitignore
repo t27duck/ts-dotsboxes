@@ -1,0 +1,5 @@
+/node_modules/*
+.DS_STORE
+Thumbs.db
+www/index.js
+www/index.js.map
