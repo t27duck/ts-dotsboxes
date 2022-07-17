@@ -16,7 +16,7 @@ export class GameField {
       }
     });
 
-    const row = this.buildShortRow(SIZE * 2 + 1);
+    const row = this.buildShortRow(SIZE * 2);
     this.element.appendChild(row);
   }
 
@@ -31,7 +31,7 @@ export class GameField {
 
       const line = document.createElement("div");
       line.classList.add("line-horizontal", "line", "line-available");
-      line.dataset.position = `${rowIndex}x${columnIndex}`;
+      line.id = `horizontal-${rowIndex}x${columnIndex}`;
       line.dataset.row = rowIndex.toString();
       line.dataset.column = columnIndex.toString();
       line.innerHTML = "&nbsp;";
@@ -50,7 +50,7 @@ export class GameField {
     times(SIZE)((columnIndex: number) => {
       const line = document.createElement("div");
       line.classList.add("line-vertical", "line", "line-available");
-      line.dataset.position = `${rowIndex}x${columnIndex}`;
+      line.id = `vertical-${rowIndex}x${columnIndex}`;
       line.dataset.row = rowIndex.toString();
       line.dataset.column = columnIndex.toString();
       line.innerHTML = "&nbsp;";
@@ -58,7 +58,7 @@ export class GameField {
 
       const box = document.createElement("div");
       box.classList.add("box");
-      box.dataset.position = `${rowIndex}x${columnIndex}`;
+      box.id = `box-${rowIndex}x${columnIndex}`;
       box.dataset.row = rowIndex.toString();
       box.dataset.column = columnIndex.toString();
       box.innerHTML = "&nbsp;";
@@ -66,7 +66,9 @@ export class GameField {
     });
     const line = document.createElement("div");
     line.classList.add("line-vertical", "line", "line-available");
-    line.dataset.position = `${rowIndex}x${SIZE + 1}`;
+    line.id = `vertical-${rowIndex}x${SIZE}`;
+    line.dataset.row = rowIndex.toString();
+    line.dataset.column = SIZE.toString();
     line.innerHTML = "&nbsp;";
     row.appendChild(line);
     return row;
