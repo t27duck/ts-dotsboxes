@@ -5,6 +5,7 @@ export class Game {
   private _player1Score: number;
   private _player2Score: number;
   private _playerScores: HTMLDivElement;
+  private _information: HTMLDivElement;
 
   constructor(gameBoardElement: HTMLDivElement) {
     this._player1Score = 0;
@@ -16,7 +17,9 @@ export class Game {
       line.addEventListener("click", this.lineClicked);
     });
     this._playerScores = document.getElementById("score") as HTMLDivElement;
+    this._information = document.getElementById("information") as HTMLDivElement;
     this.displayScores();
+    this.displayTurn();
   }
 
   lineClicked = (event: Event) => {
@@ -40,6 +43,7 @@ export class Game {
     } else {
       this._currentPlayer = 1;
     }
+    this.displayTurn();
   };
 
   checkForFilledBox(selectedLine: HTMLDivElement): void {
@@ -106,5 +110,9 @@ export class Game {
 
   displayScores(): void {
     this._playerScores.innerHTML = `${this._player1Score} - ${this._player2Score}`;
+  }
+
+  displayTurn(): void {
+    this._information.innerHTML = `Player ${this._currentPlayer}'s Turn`;
   }
 }
