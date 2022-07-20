@@ -2,14 +2,21 @@ import { GameField } from "./GameField";
 
 export class Game {
   private _currentPlayer = 1;
+  private _player1Score: number;
+  private _player2Score: number;
+  private _playerScores: HTMLDivElement;
 
   constructor(gameBoardElement: HTMLDivElement) {
+    this._player1Score = 0;
+    this._player2Score = 0;
     const gameField = new GameField(gameBoardElement);
     gameField.setup();
 
     document.querySelectorAll(".line").forEach((line) => {
       line.addEventListener("click", this.lineClicked);
     });
+    this._playerScores = document.getElementById("score") as HTMLDivElement;
+    this.displayScores();
   }
 
   lineClicked = (event: Event) => {
@@ -26,6 +33,7 @@ export class Game {
     line.classList.add("line-selected", `line-selected-${this._currentPlayer}`);
 
     this.checkForFilledBox(line);
+    this.displayScores();
 
     if (this._currentPlayer === 1) {
       this._currentPlayer = 2;
@@ -51,6 +59,7 @@ export class Game {
       const south = document.getElementById(`horizontal-${row + 1}x${column - 1}`);
       if (north?.classList.contains("line-selected") && south?.classList.contains("line-selected")) {
         document.getElementById(`box-${row}x${column - 1}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        this.addToScore();
       }
     }
     const next = document.getElementById(`vertical-${row}x${column + 1}`);
@@ -59,6 +68,7 @@ export class Game {
       const south = document.getElementById(`horizontal-${row + 1}x${column}`);
       if (north?.classList.contains("line-selected") && south?.classList.contains("line-selected")) {
         document.getElementById(`box-${row}x${column}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        this.addToScore();
       }
     }
   }
@@ -72,6 +82,7 @@ export class Game {
       const east = document.getElementById(`vertical-${row - 1}x${column + 1}`);
       if (west?.classList.contains("line-selected") && east?.classList.contains("line-selected")) {
         document.getElementById(`box-${row - 1}x${column}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        this.addToScore();
       }
     }
     const next = document.getElementById(`horizontal-${row + 2}x${column}`);
@@ -80,7 +91,20 @@ export class Game {
       const east = document.getElementById(`vertical-${row + 1}x${column + 1}`);
       if (west?.classList.contains("line-selected") && east?.classList.contains("line-selected")) {
         document.getElementById(`box-${row + 1}x${column}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        this.addToScore();
       }
     }
+  }
+
+  addToScore(): void {
+    if (this._currentPlayer === 1) {
+      this._player1Score++;
+    } else {
+      this._player2Score++;
+    }
+  }
+
+  displayScores(): void {
+    this._playerScores.innerHTML = `${this._player1Score} - ${this._player2Score}`;
   }
 }
