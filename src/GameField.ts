@@ -57,7 +57,7 @@ export class GameField {
       row.appendChild(line);
 
       const box = document.createElement("div");
-      box.classList.add("box");
+      box.classList.add("box", "box-available");
       box.id = `box-${rowIndex}x${columnIndex}`;
       box.dataset.row = rowIndex.toString();
       box.dataset.column = columnIndex.toString();

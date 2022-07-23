@@ -43,7 +43,11 @@ export class Game {
     } else {
       this._currentPlayer = 1;
     }
-    this.displayTurn();
+    if (this.gameIsOver()) {
+      this.displayGameOver();
+    } else {
+      this.displayTurn();
+    }
   };
 
   checkForFilledBox(selectedLine: HTMLDivElement): void {
@@ -63,6 +67,7 @@ export class Game {
       const south = document.getElementById(`horizontal-${row + 1}x${column - 1}`);
       if (north?.classList.contains("line-selected") && south?.classList.contains("line-selected")) {
         document.getElementById(`box-${row}x${column - 1}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        document.getElementById(`box-${row}x${column - 1}`)?.classList.remove("box-available");
         this.addToScore();
       }
     }
@@ -72,6 +77,7 @@ export class Game {
       const south = document.getElementById(`horizontal-${row + 1}x${column}`);
       if (north?.classList.contains("line-selected") && south?.classList.contains("line-selected")) {
         document.getElementById(`box-${row}x${column}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        document.getElementById(`box-${row}x${column}`)?.classList.remove("box-available");
         this.addToScore();
       }
     }
@@ -86,6 +92,7 @@ export class Game {
       const east = document.getElementById(`vertical-${row - 1}x${column + 1}`);
       if (west?.classList.contains("line-selected") && east?.classList.contains("line-selected")) {
         document.getElementById(`box-${row - 1}x${column}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        document.getElementById(`box-${row - 1}x${column}`)?.classList.remove("box-available");
         this.addToScore();
       }
     }
@@ -95,6 +102,7 @@ export class Game {
       const east = document.getElementById(`vertical-${row + 1}x${column + 1}`);
       if (west?.classList.contains("line-selected") && east?.classList.contains("line-selected")) {
         document.getElementById(`box-${row + 1}x${column}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        document.getElementById(`box-${row + 1}x${column}`)?.classList.remove("box-available");
         this.addToScore();
       }
     }
@@ -114,5 +122,24 @@ export class Game {
 
   displayTurn(): void {
     this._information.innerHTML = `Player ${this._currentPlayer}'s Turn`;
+  }
+
+  gameIsOver(): boolean {
+    return document.querySelectorAll(".box-available").length === 0;
+  }
+
+  displayGameOver(): void {
+    let winningPlayer = 0;
+    if (document.querySelectorAll(".box-filled-1").length > document.querySelectorAll(".box-filled-2").length) {
+      winningPlayer = 1;
+    } else if (document.querySelectorAll(".box-filled-1").length < document.querySelectorAll(".box-filled-2").length) {
+      winningPlayer = 2;
+    }
+
+    if (winningPlayer === 0) {
+      this._information.innerHTML = "Game over! It's a tie!";
+    } else {
+      this._information.innerHTML = `Game over! Player ${winningPlayer} wins!`;
+    }
   }
 }
