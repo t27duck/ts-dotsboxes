@@ -24,23 +24,11 @@ export class GameField {
     const row = document.createElement("div");
     row.classList.add("row-short");
     times(SIZE)((columnIndex: number) => {
-      const dot = document.createElement("div");
-      dot.classList.add("dot");
-      dot.innerHTML = "&nbsp;";
-      row.appendChild(dot);
-
-      const line = document.createElement("div");
-      line.classList.add("line-horizontal", "line", "line-available");
-      line.id = `horizontal-${rowIndex}x${columnIndex}`;
-      line.dataset.row = rowIndex.toString();
-      line.dataset.column = columnIndex.toString();
-      line.innerHTML = "&nbsp;";
-      row.appendChild(line);
+      this.generateDot(row);
+      this.generateLine(row, rowIndex, columnIndex, "horizontal");
     });
-    const dot = document.createElement("div");
-    dot.classList.add("dot");
-    dot.innerHTML = "&nbsp;";
-    row.appendChild(dot);
+    this.generateDot(row);
+
     return row;
   }
 
@@ -48,29 +36,38 @@ export class GameField {
     const row = document.createElement("div");
     row.classList.add("row-tall");
     times(SIZE)((columnIndex: number) => {
-      const line = document.createElement("div");
-      line.classList.add("line-vertical", "line", "line-available");
-      line.id = `vertical-${rowIndex}x${columnIndex}`;
-      line.dataset.row = rowIndex.toString();
-      line.dataset.column = columnIndex.toString();
-      line.innerHTML = "&nbsp;";
-      row.appendChild(line);
-
-      const box = document.createElement("div");
-      box.classList.add("box", "box-available");
-      box.id = `box-${rowIndex}x${columnIndex}`;
-      box.dataset.row = rowIndex.toString();
-      box.dataset.column = columnIndex.toString();
-      box.innerHTML = "&nbsp;";
-      row.appendChild(box);
+      this.generateLine(row, rowIndex, columnIndex, "vertical");
+      this.generateBox(row, rowIndex, columnIndex);
     });
-    const line = document.createElement("div");
-    line.classList.add("line-vertical", "line", "line-available");
-    line.id = `vertical-${rowIndex}x${SIZE}`;
-    line.dataset.row = rowIndex.toString();
-    line.dataset.column = SIZE.toString();
-    line.innerHTML = "&nbsp;";
-    row.appendChild(line);
+    this.generateLine(row, rowIndex, SIZE, "vertical");
+
     return row;
+  }
+
+  generateDot(parentElement: HTMLDivElement): void {
+    const dot = document.createElement("div");
+    dot.classList.add("dot");
+    dot.innerHTML = "&nbsp;";
+    parentElement.appendChild(dot);
+  }
+
+  generateBox(parentElement: HTMLDivElement, rowIndex: number, columnIndex: number): void {
+    const box = document.createElement("div");
+    box.classList.add("box", "box-available");
+    box.id = `box-${rowIndex}x${columnIndex}`;
+    box.dataset.row = rowIndex.toString();
+    box.dataset.column = columnIndex.toString();
+    box.innerHTML = "&nbsp;";
+    parentElement.appendChild(box);
+  }
+
+  generateLine(parentElement: HTMLDivElement, rowIndex: number, columnIndex: number, type: string): void {
+    const line = document.createElement("div");
+    line.classList.add(`line-${type}`, "line", "line-available");
+    line.id = `${type}-${rowIndex}x${columnIndex}`;
+    line.dataset.row = rowIndex.toString();
+    line.dataset.column = columnIndex.toString();
+    line.innerHTML = "&nbsp;";
+    parentElement.appendChild(line);
   }
 }
