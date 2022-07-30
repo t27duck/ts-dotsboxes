@@ -5,6 +5,10 @@ export class GameField {
     this.element = element;
   }
 
+  reset(): void {
+    this.element.innerHTML = "";
+  }
+
   setup(): void {
     times(SIZE * 2)((rowIndex: number) => {
       if (rowIndex % 2 == 0) {

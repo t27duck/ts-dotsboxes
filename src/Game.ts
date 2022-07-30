@@ -6,12 +6,13 @@ export class Game {
   private _player2Score: number;
   private _playerScores: HTMLDivElement;
   private _information: HTMLDivElement;
+  private _gameField: GameField;
 
   constructor(gameBoardElement: HTMLDivElement) {
     this._player1Score = 0;
     this._player2Score = 0;
-    const gameField = new GameField(gameBoardElement);
-    gameField.setup();
+    this._gameField = new GameField(gameBoardElement);
+    this._gameField.setup();
 
     document.querySelectorAll(".line").forEach((line) => {
       line.addEventListener("click", this.lineClicked);
@@ -21,6 +22,21 @@ export class Game {
     this.displayScores();
     this.displayTurn();
   }
+
+  resetGame = () => {
+    this._player1Score = 0;
+    this._player2Score = 0;
+    this._gameField.reset();
+    this._gameField.setup();
+
+    document.querySelectorAll(".line").forEach((line) => {
+      line.addEventListener("click", this.lineClicked);
+    });
+    this._playerScores = document.getElementById("score") as HTMLDivElement;
+    this._information = document.getElementById("information") as HTMLDivElement;
+    this.displayScores();
+    this.displayTurn();
+  };
 
   lineClicked = (event: Event) => {
     event.preventDefault();
@@ -149,5 +165,10 @@ export class Game {
     } else {
       this._information.innerHTML = `Game over! Player ${winningPlayer} wins!`;
     }
+
+    const button = document.createElement("button");
+    button.addEventListener("click", this.resetGame);
+    button.innerHTML = "Play again";
+    this._information.appendChild(button);
   }
 }
