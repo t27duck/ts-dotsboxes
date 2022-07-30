@@ -13,12 +13,10 @@ export class Game {
     this._player2Score = 0;
     this._gameField = new GameField(gameBoardElement);
     this._gameField.setup();
-
-    document.querySelectorAll(".line").forEach((line) => {
-      line.addEventListener("click", this.lineClicked);
-    });
     this._playerScores = document.getElementById("score") as HTMLDivElement;
     this._information = document.getElementById("information") as HTMLDivElement;
+
+    this.addClickEvents();
     this.displayScores();
     this.displayTurn();
   }
@@ -28,12 +26,7 @@ export class Game {
     this._player2Score = 0;
     this._gameField.reset();
     this._gameField.setup();
-
-    document.querySelectorAll(".line").forEach((line) => {
-      line.addEventListener("click", this.lineClicked);
-    });
-    this._playerScores = document.getElementById("score") as HTMLDivElement;
-    this._information = document.getElementById("information") as HTMLDivElement;
+    this.addClickEvents();
     this.displayScores();
     this.displayTurn();
   };
@@ -65,6 +58,12 @@ export class Game {
       this.displayTurn();
     }
   };
+
+  addClickEvents(): void {
+    document.querySelectorAll(".line").forEach((line) => {
+      line.addEventListener("click", this.lineClicked);
+    });
+  }
 
   checkForFilledBox(selectedLine: HTMLDivElement): void {
     if (selectedLine.classList.contains("line-vertical")) {
