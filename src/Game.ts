@@ -66,7 +66,9 @@ export class Game {
       const north = document.getElementById(`horizontal-${row - 1}x${column - 1}`);
       const south = document.getElementById(`horizontal-${row + 1}x${column - 1}`);
       if (north?.classList.contains("line-selected") && south?.classList.contains("line-selected")) {
-        document.getElementById(`box-${row}x${column - 1}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        document
+          .getElementById(`box-${row}x${column - 1}`)
+          ?.classList.add(`box-filled-${this._currentPlayer}`, "box-filled");
         document.getElementById(`box-${row}x${column - 1}`)?.classList.remove("box-available");
         this.addToScore();
       }
@@ -76,7 +78,9 @@ export class Game {
       const north = document.getElementById(`horizontal-${row - 1}x${column}`);
       const south = document.getElementById(`horizontal-${row + 1}x${column}`);
       if (north?.classList.contains("line-selected") && south?.classList.contains("line-selected")) {
-        document.getElementById(`box-${row}x${column}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        document
+          .getElementById(`box-${row}x${column}`)
+          ?.classList.add(`box-filled-${this._currentPlayer}`, "box-filled");
         document.getElementById(`box-${row}x${column}`)?.classList.remove("box-available");
         this.addToScore();
       }
@@ -91,7 +95,9 @@ export class Game {
       const west = document.getElementById(`vertical-${row - 1}x${column}`);
       const east = document.getElementById(`vertical-${row - 1}x${column + 1}`);
       if (west?.classList.contains("line-selected") && east?.classList.contains("line-selected")) {
-        document.getElementById(`box-${row - 1}x${column}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        document
+          .getElementById(`box-${row - 1}x${column}`)
+          ?.classList.add(`box-filled-${this._currentPlayer}`, "box-filled");
         document.getElementById(`box-${row - 1}x${column}`)?.classList.remove("box-available");
         this.addToScore();
       }
@@ -101,7 +107,9 @@ export class Game {
       const west = document.getElementById(`vertical-${row + 1}x${column}`);
       const east = document.getElementById(`vertical-${row + 1}x${column + 1}`);
       if (west?.classList.contains("line-selected") && east?.classList.contains("line-selected")) {
-        document.getElementById(`box-${row + 1}x${column}`)?.classList.add(`box-filled-${this._currentPlayer}`);
+        document
+          .getElementById(`box-${row + 1}x${column}`)
+          ?.classList.add(`box-filled-${this._currentPlayer}`, "box-filled");
         document.getElementById(`box-${row + 1}x${column}`)?.classList.remove("box-available");
         this.addToScore();
       }
