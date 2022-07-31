@@ -160,14 +160,14 @@ export class Game {
     }
 
     if (winningPlayer === 0) {
-      this._information.innerHTML = "Game over! It's a tie!";
+      this._information.innerHTML = "<div>Game over! It's a tie!</div>";
     } else {
-      this._information.innerHTML = `Game over! Player ${winningPlayer} wins!`;
+      this._information.innerHTML = `<div>Game over! Player ${winningPlayer} wins!</div>`;
     }
 
     const button = document.createElement("button");
     button.addEventListener("click", this.resetGame);
-    button.innerHTML = "Play again";
+    button.innerHTML = "New Game";
     this._information.appendChild(button);
   }
 }
