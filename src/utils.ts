@@ -1,5 +1,3 @@
-export const SIZE = 8;
-
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const times = (n: number) => (f: Function) => {
   const iter = (i: number) => {

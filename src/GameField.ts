@@ -1,8 +1,9 @@
-import { times, SIZE } from "./utils";
+import { times } from "./utils";
 
 export class GameField {
-  constructor(private element: HTMLElement) {
+  constructor(private element: HTMLElement, private size = 8) {
     this.element = element;
+    this.size = size;
   }
 
   reset(): void {
@@ -10,7 +11,7 @@ export class GameField {
   }
 
   setup(): void {
-    times(SIZE * 2)((rowIndex: number) => {
+    times(this.size * 2)((rowIndex: number) => {
       if (rowIndex % 2 == 0) {
         const row = this.buildShortRow(rowIndex);
         this.element.appendChild(row);
@@ -20,14 +21,14 @@ export class GameField {
       }
     });
 
-    const row = this.buildShortRow(SIZE * 2);
+    const row = this.buildShortRow(this.size * 2);
     this.element.appendChild(row);
   }
 
   buildShortRow(rowIndex: number): HTMLElement {
     const row = document.createElement("div");
     row.classList.add("row-short");
-    times(SIZE)((columnIndex: number) => {
+    times(this.size)((columnIndex: number) => {
       this.generateDot(row);
       this.generateLine(row, rowIndex, columnIndex, "horizontal");
     });
@@ -39,11 +40,11 @@ export class GameField {
   buildTallRow(rowIndex: number): HTMLElement {
     const row = document.createElement("div");
     row.classList.add("row-tall");
-    times(SIZE)((columnIndex: number) => {
+    times(this.size)((columnIndex: number) => {
       this.generateLine(row, rowIndex, columnIndex, "vertical");
       this.generateBox(row, rowIndex, columnIndex);
     });
-    this.generateLine(row, rowIndex, SIZE, "vertical");
+    this.generateLine(row, rowIndex, this.size, "vertical");
 
     return row;
   }
