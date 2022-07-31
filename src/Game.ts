@@ -25,6 +25,7 @@ export class Game {
   resetGame = () => {
     this._player1Score = 0;
     this._player2Score = 0;
+    this._currentPlayer = 1;
     this._gameField.reset();
     this._gameField.setup();
     this.addClickEvents();
