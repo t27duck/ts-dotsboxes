@@ -17,6 +17,7 @@ export class Game {
     this._information = document.getElementById("information") as HTMLDivElement;
 
     this.addClickEvents();
+    this.createResetButton();
     this.displayScores();
     this.displayTurn();
   }
@@ -58,6 +59,16 @@ export class Game {
       this.displayTurn();
     }
   };
+
+  createResetButton(): void {
+    const resetElement = document.getElementById("reset-game");
+    if (resetElement) {
+      const button = document.createElement("button");
+      button.addEventListener("click", this.resetGame);
+      button.innerHTML = "Reset Game";
+      resetElement.appendChild(button);
+    }
+  }
 
   addClickEvents(): void {
     document.querySelectorAll(".line").forEach((line) => {
@@ -160,14 +171,9 @@ export class Game {
     }
 
     if (winningPlayer === 0) {
-      this._information.innerHTML = "<div>Game over! It's a tie!</div>";
+      this._information.innerHTML = "Game over! It's a tie!";
     } else {
-      this._information.innerHTML = `<div>Game over! Player ${winningPlayer} wins!</div>`;
+      this._information.innerHTML = `Game over! Player ${winningPlayer} wins!`;
     }
-
-    const button = document.createElement("button");
-    button.addEventListener("click", this.resetGame);
-    button.innerHTML = "New Game";
-    this._information.appendChild(button);
   }
 }
