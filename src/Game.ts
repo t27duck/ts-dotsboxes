@@ -1,4 +1,5 @@
 import { GameField } from "./GameField";
+import { FilledBoxCheck } from "./FilledBoxCheck";
 
 export class Game {
   private _currentPlayer = 1;
@@ -7,6 +8,7 @@ export class Game {
   private _playerScores: HTMLDivElement;
   private _information: HTMLDivElement;
   private _gameField: GameField;
+  private _filledBoxCheck: FilledBoxCheck;
 
   constructor(gameBoardElement: HTMLDivElement) {
     this._player1Score = 0;
@@ -15,6 +17,7 @@ export class Game {
     this._gameField.setup();
     this._playerScores = document.getElementById("score") as HTMLDivElement;
     this._information = document.getElementById("information") as HTMLDivElement;
+    this._filledBoxCheck = new FilledBoxCheck();
 
     this.addClickEvents();
     this.createResetButton();
@@ -78,76 +81,21 @@ export class Game {
   }
 
   checkForFilledBox(selectedLine: HTMLDivElement): void {
+    let scoreAddition;
     if (selectedLine.classList.contains("line-vertical")) {
-      this.checkForFilledBoxVertical(selectedLine);
+      scoreAddition = this._filledBoxCheck.checkForFilledBoxVertical(selectedLine, this._currentPlayer);
     } else {
-      this.checkForFilledBoxHorizontal(selectedLine);
+      scoreAddition = this._filledBoxCheck.checkForFilledBoxHorizontal(selectedLine, this._currentPlayer);
     }
+
+    this.addToScore(scoreAddition);
   }
 
-  checkForFilledBoxVertical(selectedLine: HTMLDivElement): void {
-    const row = parseInt(selectedLine.dataset.row as string);
-    const column = parseInt(selectedLine.dataset.column as string);
-    const previous = document.getElementById(`vertical-${row}x${column - 1}`);
-    if (previous?.classList.contains("line-selected")) {
-      const north = document.getElementById(`horizontal-${row - 1}x${column - 1}`);
-      const south = document.getElementById(`horizontal-${row + 1}x${column - 1}`);
-      if (north?.classList.contains("line-selected") && south?.classList.contains("line-selected")) {
-        document
-          .getElementById(`box-${row}x${column - 1}`)
-          ?.classList.add(`box-filled-${this._currentPlayer}`, "box-filled");
-        document.getElementById(`box-${row}x${column - 1}`)?.classList.remove("box-available");
-        this.addToScore();
-      }
-    }
-    const next = document.getElementById(`vertical-${row}x${column + 1}`);
-    if (next?.classList.contains("line-selected")) {
-      const north = document.getElementById(`horizontal-${row - 1}x${column}`);
-      const south = document.getElementById(`horizontal-${row + 1}x${column}`);
-      if (north?.classList.contains("line-selected") && south?.classList.contains("line-selected")) {
-        document
-          .getElementById(`box-${row}x${column}`)
-          ?.classList.add(`box-filled-${this._currentPlayer}`, "box-filled");
-        document.getElementById(`box-${row}x${column}`)?.classList.remove("box-available");
-        this.addToScore();
-      }
-    }
-  }
-
-  checkForFilledBoxHorizontal(selectedLine: HTMLDivElement): void {
-    const row = parseInt(selectedLine.dataset.row as string);
-    const column = parseInt(selectedLine.dataset.column as string);
-    const previous = document.getElementById(`horizontal-${row - 2}x${column}`);
-    if (previous?.classList.contains("line-selected")) {
-      const west = document.getElementById(`vertical-${row - 1}x${column}`);
-      const east = document.getElementById(`vertical-${row - 1}x${column + 1}`);
-      if (west?.classList.contains("line-selected") && east?.classList.contains("line-selected")) {
-        document
-          .getElementById(`box-${row - 1}x${column}`)
-          ?.classList.add(`box-filled-${this._currentPlayer}`, "box-filled");
-        document.getElementById(`box-${row - 1}x${column}`)?.classList.remove("box-available");
-        this.addToScore();
-      }
-    }
-    const next = document.getElementById(`horizontal-${row + 2}x${column}`);
-    if (next?.classList.contains("line-selected")) {
-      const west = document.getElementById(`vertical-${row + 1}x${column}`);
-      const east = document.getElementById(`vertical-${row + 1}x${column + 1}`);
-      if (west?.classList.contains("line-selected") && east?.classList.contains("line-selected")) {
-        document
-          .getElementById(`box-${row + 1}x${column}`)
-          ?.classList.add(`box-filled-${this._currentPlayer}`, "box-filled");
-        document.getElementById(`box-${row + 1}x${column}`)?.classList.remove("box-available");
-        this.addToScore();
-      }
-    }
-  }
-
-  addToScore(): void {
+  addToScore(score: number): void {
     if (this._currentPlayer === 1) {
-      this._player1Score++;
+      this._player1Score += score;
     } else {
-      this._player2Score++;
+      this._player2Score += score;
     }
   }
 
