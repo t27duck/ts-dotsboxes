@@ -21,8 +21,7 @@ export class Game {
 
     this.addClickEvents();
     this.createResetButton();
-    this.displayScores();
-    this.displayTurn();
+    this.updateDisplay();
   }
 
   resetGame = () => {
@@ -32,8 +31,7 @@ export class Game {
     this._gameField.reset();
     this._gameField.setup();
     this.addClickEvents();
-    this.displayScores();
-    this.displayTurn();
+    this.updateDisplay();
   };
 
   lineClicked = (event: Event) => {
@@ -50,18 +48,12 @@ export class Game {
     line.classList.add("line-selected", `line-selected-${this._currentPlayer}`);
 
     this.checkForFilledBox(line);
-    this.displayScores();
-
     if (this._currentPlayer === 1) {
       this._currentPlayer = 2;
     } else {
       this._currentPlayer = 1;
     }
-    if (this.gameIsOver()) {
-      this.displayGameOver();
-    } else {
-      this.displayTurn();
-    }
+    this.updateDisplay();
   };
 
   createResetButton(): void {
@@ -99,12 +91,13 @@ export class Game {
     }
   }
 
-  displayScores(): void {
+  updateDisplay(): void {
     this._playerScores.innerHTML = `${this._player1Score} - ${this._player2Score}`;
-  }
-
-  displayTurn(): void {
-    this._information.innerHTML = `Player ${this._currentPlayer}'s Turn`;
+    if (this.gameIsOver()) {
+      this.displayGameOver();
+    } else {
+      this._information.innerHTML = `Player ${this._currentPlayer}'s Turn`;
+    }
   }
 
   gameIsOver(): boolean {
