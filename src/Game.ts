@@ -14,7 +14,7 @@ export class Game {
     this._player1Score = 0;
     this._player2Score = 0;
     this._gameField = new GameField(gameBoardElement);
-    this._gameField.setup();
+    this._gameField.setup(this.determineSize());
     this._playerScores = document.getElementById("score") as HTMLDivElement;
     this._information = document.getElementById("information") as HTMLDivElement;
     this._filledBoxCheck = new FilledBoxCheck();
@@ -29,7 +29,7 @@ export class Game {
     this._player2Score = 0;
     this._currentPlayer = 1;
     this._gameField.reset();
-    this._gameField.setup();
+    this._gameField.setup(this.determineSize());
     this.addClickEvents();
     this.updateDisplay();
   };
@@ -55,6 +55,15 @@ export class Game {
     }
     this.updateDisplay();
   };
+
+  determineSize(): number {
+    const fieldSizeField = document.getElementById("field-size") as HTMLInputElement;
+    if (fieldSizeField) {
+      return parseInt(fieldSizeField.value);
+    } else {
+      return 8;
+    }
+  }
 
   setupResetButton(): void {
     const resetButton = document.getElementById("reset-game");

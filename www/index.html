@@ -65,6 +65,16 @@
       text-align: center;
       margin: 1rem auto;
     }
+    #game-config {
+      display: flex;
+      width: max-content;
+    }
+    #game-config > div {
+      margin-right: 1rem;
+    }
+    #field-size {
+      width: 2.5rem;
+    }
     #score {
       text-align: center;
       font-size: 1.8rem;
@@ -80,6 +90,10 @@
 <body>
   <div id="information"></div>
   <div id="game-config">
+    <div>
+      <span>Grid Size:</span>
+      <input type="number" id="field-size" min="4" value="8" step="1" />
+    </div>
     <button id="reset-game">Reset Game</button>
   </div>
   <div id="score"></div>

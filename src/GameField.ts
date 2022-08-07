@@ -1,16 +1,19 @@
 import { times } from "./utils";
 
 export class GameField {
-  constructor(private element: HTMLElement, private size = 8) {
+  private size = 8;
+
+  constructor(private element: HTMLElement) {
     this.element = element;
-    this.size = size;
   }
 
   reset(): void {
     this.element.innerHTML = "";
   }
 
-  setup(): void {
+  setup(size = 8): void {
+    this.size = size;
+
     times(this.size * 2)((rowIndex: number) => {
       if (rowIndex % 2 == 0) {
         const row = this.buildShortRow(rowIndex);
