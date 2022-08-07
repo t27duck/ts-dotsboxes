@@ -20,7 +20,7 @@ export class Game {
     this._filledBoxCheck = new FilledBoxCheck();
 
     this.addClickEvents();
-    this.createResetButton();
+    this.setupResetButton();
     this.updateDisplay();
   }
 
@@ -56,13 +56,10 @@ export class Game {
     this.updateDisplay();
   };
 
-  createResetButton(): void {
-    const resetElement = document.getElementById("reset-game");
-    if (resetElement) {
-      const button = document.createElement("button");
-      button.addEventListener("click", this.resetGame);
-      button.innerHTML = "Reset Game";
-      resetElement.appendChild(button);
+  setupResetButton(): void {
+    const resetButton = document.getElementById("reset-game");
+    if (resetButton) {
+      resetButton.addEventListener("click", this.resetGame);
     }
   }
 

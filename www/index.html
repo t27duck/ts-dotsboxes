@@ -58,9 +58,12 @@
     .line-selected-2 {
       background-color: var(--player2-color);
     }
-    #information, #reset-game {
-      text-align: center;
+    #information {
       font-size: 2rem;
+    }
+    #information, #game-config {
+      text-align: center;
+      margin: 1rem auto;
     }
     #score {
       text-align: center;
@@ -76,7 +79,9 @@
 </head>
 <body>
   <div id="information"></div>
-  <div id="reset-game"></div>
+  <div id="game-config">
+    <button id="reset-game">Reset Game</button>
+  </div>
   <div id="score"></div>
   <div id="grid"></div>
 </body>
