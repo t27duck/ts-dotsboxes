@@ -1,5 +1,6 @@
 import { GameField } from "./GameField";
 import { FilledBoxCheck } from "./FilledBoxCheck";
+import { DEFAULT_SIZE } from "./utils";
 
 export class Game {
   private _currentPlayer = 1;
@@ -59,9 +60,9 @@ export class Game {
   determineSize(): number {
     const fieldSizeField = document.getElementById("field-size") as HTMLInputElement;
     if (fieldSizeField) {
-      return parseInt(fieldSizeField.value);
+      return parseInt(fieldSizeField.value) || DEFAULT_SIZE;
     } else {
-      return 8;
+      return DEFAULT_SIZE;
     }
   }
 

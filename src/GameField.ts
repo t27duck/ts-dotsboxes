@@ -1,7 +1,7 @@
-import { times } from "./utils";
+import { DEFAULT_SIZE, times } from "./utils";
 
 export class GameField {
-  private size = 8;
+  private size = DEFAULT_SIZE;
 
   constructor(private element: HTMLElement) {
     this.element = element;
@@ -11,7 +11,7 @@ export class GameField {
     this.element.innerHTML = "";
   }
 
-  setup(size = 8): void {
+  setup(size = DEFAULT_SIZE): void {
     this.size = size;
 
     times(this.size * 2)((rowIndex: number) => {
