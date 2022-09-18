@@ -1,0 +1,28 @@
+name: Checks
+
+on:
+  # Trigger on any push to the main branch (ie, PR merge)
+  push:
+    branches:
+      - main
+  # Trigger on any push to a PR based off of main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  checks:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - name: NPM install
+        run: npm install
+
+      - name: Run eslint
+        run: npm run lint
