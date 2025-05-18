@@ -14,7 +14,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "esbuild": "^0.25.3",
+    "esbuild": "^0.25.4",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
