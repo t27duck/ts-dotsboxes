@@ -1,0 +1,29 @@
+service: tsdotsandboxes
+
+<% require "dotenv"; Dotenv.load(".env") if File.exist?(".env") %>
+
+image: <%= ENV["KAMAL_REGISTRY_IMAGE"] %>
+
+servers:
+  web:
+    - <%= ENV["SERVER_HOST"] %>
+
+proxy:
+  ssl: true
+  hosts: 
+    - <%= ENV["PROXY_HOST"] %>
+  healthcheck:
+    path: /
+
+registry:
+  username: <%= ENV["KAMAL_REGISTRY_USERNAME"] %>
+  password: '<%= ENV["KAMAL_REGISTRY_PASSWORD"] %>'
+
+builder:
+  arch: amd64
+
+aliases:
+  shell: app exec --interactive --reuse "sh"
+
+# volumes:
+#   - "dotsandboxes_storage:/var/www/html"

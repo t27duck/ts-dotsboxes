@@ -4,7 +4,7 @@ An implementation of the [Dots and Boxes](https://en.wikipedia.org/wiki/Dots_and
 
 ## Play Now
 
-https://stuff.t27duck.xyz/dotsboxes/
+https://dotsandboxes.t27duck.xyz
 
 ## Running
 
